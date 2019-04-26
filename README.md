@@ -2,7 +2,7 @@
 A simple web app to predict arpu classification from form input based on user demography attribut
 
 ## Model
-Classifier model built with random forest algorithm
+Classifier model built in python with random forest algorithm
 
 ## data
 ### Attribut
