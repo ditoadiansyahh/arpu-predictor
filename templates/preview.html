@@ -1,0 +1,13 @@
+{% extends 'bootstrap/base.html' %} {% block content %}
+<div class="container jumbotron text-center">
+  <h3>ARPU Predictor</h3>
+  <a href="{{ url_for('index') }}" class="btn btn-danger">Back</a>
+</div>
+
+<div class="container" style="height:300px;overflow:auto;">
+  {{ df_view.to_html(classes='table table-striped table-hover table-sm') | safe }}
+</div>
+{% endblock %} {% block scripts %}
+{{ super() }}
+
+{% endblock %}

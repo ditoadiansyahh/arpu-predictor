@@ -1,0 +1,207 @@
+{% extends 'bootstrap/base.html' %} {% from "includes/_form_macro.html" import
+form_field, radio_field, boolean_field %} {% block title %} Arpu Predictor {%
+endblock %} {% block content %}
+
+<div class="container jumbotron text-center">
+  <h3>ARPU Predictor</h3>
+  <a href="{{ url_for('index') }}" class="btn btn-danger">Reset</a>
+  <a href="{{ url_for('preview') }}" class="btn btn-primary">preview</a>
+</div>
+
+<!-- arpu input -->
+<section>
+  <div class="container" style="margin-top:20px">
+    <div class="row">
+      <div class="col-md-4 ">
+        <div class="well">
+          <fieldset>
+            <legend>ARPU Input</legend>
+            <form
+              method="POST"
+              action="{{ url_for('predict') }}"
+              class="form-horizontal"
+              novalidate
+            >
+              {{ form.csrf_token }}
+              {{ form_field(form.age) }}
+              {{ radio_field(form.gender) }}
+              {{ form_field(form.education) }}
+              {{ form_field(form.marital_status) }}
+              {{ form_field(form.ses) }}
+              {{ form_field(form.status) }}
+              <div class="form-group">
+                <label class="col-md-5 control-label">Accessed App</label>
+                <div class="col-md-7">
+                  {{ boolean_field(form.bbm) }}
+                  {{ boolean_field(form.fb) }}
+                  {{ boolean_field(form.ig) }}
+                  {{ boolean_field(form.line) }}
+                  {{ boolean_field(form.wa) }}
+                  <p class="text-danger">{{ warn }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div style="float:right; margin-right: 3px;">
+                  <button
+                    type="reset"
+                    value="reset"
+                    class="btn btn-default"
+                    style="margin-right: 3px;"
+                  >
+                    Reset
+                  </button>
+                  <button type="submit" value="submit" class="btn btn-success">
+                    Predict
+                  </button>
+                </div>
+              </div>
+            </form>
+          </fieldset>
+        </div>
+      </div>
+      <!-- Showing value ------------------------------------------------------------------------ -->
+      <div class="col-md-8 ">
+        <fieldset>
+          <legend>ARPU Value</legend>
+          <div class="row">
+            <div class="col-md-6">
+              <p>Age : {{ age }}</p>
+              <!-- gender -->
+              {% if gender == 1 %}
+              <p>Gender : Male</p>
+              {% elif gender == 0 %}
+              <p>Gender : Female</p>
+              {% else %}
+              <p>Gender :</p>
+              {% endif %}
+              <!-- education -->
+              {% if education == 0 %}
+              <p>Education : Primary</p>
+              {% elif education == 1 %}
+              <p>Education : Secondary</p>
+              {% elif education == 2 %}
+              <p>Education : University</p>
+              {% else %}
+              <p>Education :</p>
+              {% endif %}
+              <!-- Marital Status -->
+              {% if marital_status == 0 %}
+              <p>Marital Status : Single</p>
+              {% elif marital_status == 1 %}
+              <p>Marital Status : Married - no children</p>
+              {% elif marital_status == 2 %}
+              <p>Marital Status : Married - with children</p>
+              {% else %}
+              <p>Marital Status :</p>
+              {% endif %}
+              <!-- SES -->
+              {% if ses == 0 %}
+              <p>Socio Economic Status : E</p>
+              {% elif ses == 1 %}
+              <p>Socio Economic Status : D</p>
+              {% elif ses == 2 %}
+              <p>Socio Economic Status : C2</p>
+              {% elif ses == 3 %}
+              <p>Socio Economic Status : C1</p>
+              {% elif ses == 4 %}
+              <p>Socio Economic Status : B2</p>
+              {% elif ses == 5 %}
+              <p>Socio Economic Status : B1</p>
+              {% elif ses == 6 %}
+              <p>Socio Economic Status : A2</p>
+              {% elif ses == 7 %}
+              <p>Socio Economic Status : A1</p>
+              {% else %}
+              <p>Socio Economic Status :</p>
+              {% endif %}
+              <!-- Status -->
+              {% if status == 0 %}
+              <p>Status : Dormant</p>
+              {% elif status == 1 %}
+              <p>Status : Less</p>
+              {% elif status == 2 %}
+              <p>Status : Active</p>
+              {% else %}
+              <p>Status :</p>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              <!-- BBM -->
+              {% if bbm == 0 %}
+              <p>BBM : No</p>
+              {% elif bbm == 1 %}
+              <p>BBM : Yes</p>
+              {% else %}
+              <p>BBM :</p>
+              {% endif %}
+              <!-- Facebook -->
+              {% if fb == 0 %}
+              <p>Facebook : No</p>
+              {% elif fb == 1 %}
+              <p>Facebook : Yes</p>
+              {% else %}
+              <p>Facebook :</p>
+              {% endif %}
+              <!-- Instagram -->
+              {% if ig == 0 %}
+              <p>Instagram : No</p>
+              {% elif ig == 1 %}
+              <p>Instagram : Yes</p>
+              {% else %}
+              <p>Instagram :</p>
+              {% endif %}
+              <!-- Line -->
+              {% if line == 0 %}
+              <p>Line : No</p>
+              {% elif line == 1 %}
+              <p>Line : Yes</p>
+              {% else %}
+              <p>Line :</p>
+              {% endif %}
+              <!-- WhatsApp -->
+              {% if wa == 0 %}
+              <p>WhatsApp : No</p>
+              {% elif wa == 1 %}
+              <p>WhatsApp : Yes</p>
+              {% else %}
+              <p>WhatsApp :</p>
+              {% endif %}
+              <!-- Value -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <hr />
+              <p style="font-weight:bold;">Predicted Arpu :</p>
+              {% if result == 0 %}
+              <p class="result vlow">VERY LOW</p>
+              {% elif result == 1 %}
+              <p class="result low">LOW</p>
+              {% elif result == 2 %}
+              <p class="result medium">MEDIUM</p>
+              {% elif result == 3 %}
+              <p class="result high">HIGH</p>
+              {% elif result == 4 %}
+              <p class="result vhigh">VERY HIGH</p>
+              {% elif result == 5 %}
+              <p class="result tusage">TOP USAGE</p>
+              {% else %}
+              <p></p>
+              {% endif %}
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %} {% block styles %}
+{{ super() }}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{url_for('static', filename='./css/style.css')}}"
+/>
+
+{% endblock %}

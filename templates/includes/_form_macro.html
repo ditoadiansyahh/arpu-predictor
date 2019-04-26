@@ -1,0 +1,42 @@
+{% extends 'bootstrap/base.html' %} {% macro form_field(field) %}
+<div class="form-group">
+  <label for="{{ field.name }}" class="col-md-5 control-label">
+    {{ field.label }}
+  </label>
+  <div class="col-md-7">
+    {{ field(class="form-control", **kwargs) | safe }}
+    <ul class="text-danger">
+      {% for error in field.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endmacro %}
+<!-- radio field -->
+{% macro radio_field(field) %}
+<div class="form-group">
+  <label class="col-md-5 control-label">
+    {{ field.label.text }}
+  </label>
+  <div class="col-md-7">
+    {% for subfield in field %}
+    <div class="radio">
+      <label for="">
+        {{ subfield }}
+        {{ subfield.label.text }}
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}
+<!-- boolean field -->
+{% macro boolean_field(field) %}
+<div class="radio">
+  <label for="">
+    {{ field() }}
+    {{ field.label.text }}
+  </label>
+</div>
+{% endmacro %}

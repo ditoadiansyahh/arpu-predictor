@@ -1,0 +1,45 @@
+/* body {
+  background-color: rgba(0, 0, 0, 0.087);
+} */
+
+.arpu {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.result {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 14px 28px;
+  font-size: 13px;
+  border-radius: 5px;
+  font-weight: bold;
+  width: 50%;
+  text-align: center;
+}
+
+.tusage {
+  border-color: #1696c9;
+  color: #1696c9;
+}
+.vhigh {
+  border-color: green;
+  color: green;
+}
+.high {
+  border-color: #7ed40d;
+  color: #7ed40d;
+}
+.medium {
+  border-color: hsl(64, 85%, 41%);
+  color: hsl(64, 85%, 41%);
+}
+.low {
+  border-color: #c4830c;
+  color: #c4830c;
+}
+.vlow {
+  border-color: #d2222d;
+  color: #d2222d;
+}
